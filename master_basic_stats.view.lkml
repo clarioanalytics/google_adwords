@@ -139,28 +139,28 @@ view: master_stats {
 
   sql_table_name:
   {% if (ad._in_query or master_stats.creative_id._in_query) %}
-    adwords_v201609.AdBasicStats_6747157124
+    google_adwords_NTE_SG.AdBasicStats_3152229625
   {% elsif (audience._in_query or master_stats.audience_criterion_id._in_query) %}
-    adwords_v201609.AudienceBasicStats_6747157124
+    google_adwords_NTE_SG.AudienceBasicStats_3152229625
   {% elsif (keyword._in_query or master_stats.criteria_id._in_query) %}
-    adwords_v201609.KeywordBasicStats_6747157124
+    google_adwords_NTE_SG.KeywordBasicStats_3152229625
   {% elsif (ad_group._in_query or master_stats.ad_group_id._in_query) %}
     {% if master_stats.hour_of_day._in_query %}
-      adwords_v201609.HourlyAdGroupStats_6747157124
+      google_adwords_NTE_SG.HourlyAdGroupStats_3152229625
     {% else %}
-      adwords_v201609.AdGroupBasicStats_6747157124
+      google_adwords_NTE_SG.AdGroupBasicStats_3152229625
     {% endif %}
   {% elsif (campaign._in_query or master_stats.campaign_id._in_query) %}
     {% if master_stats.hour_of_day._in_query %}
-      adwords_v201609.HourlyCampaignStats_6747157124
+      google_adwords_NTE_SG.HourlyCampaignStats_3152229625
     {% else %}
-      adwords_v201609.CampaignBasicStats_6747157124
+      google_adwords_NTE_SG.CampaignBasicStats_3152229625
     {% endif %}
   {% else %}
     {% if master_stats.hour_of_day._in_query %}
-      adwords_v201609.HourlyAccountStats_6747157124
+      google_adwords_NTE_SG.HourlyAccountStats_3152229625
     {% else %}
-      adwords_v201609.AccountBasicStats_6747157124
+      google_adwords_NTE_SG.AccountBasicStats_3152229625
     {% endif %}
   {% endif %} ;;
 
