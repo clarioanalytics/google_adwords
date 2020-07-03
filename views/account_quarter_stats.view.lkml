@@ -1,4 +1,4 @@
-include: "base_quarter_stats.view.lkml"
+include: "master_basic_stats.view.lkml"
 
 view: account_quarter_stats {
   extends: [stats, base_quarter_stats]
