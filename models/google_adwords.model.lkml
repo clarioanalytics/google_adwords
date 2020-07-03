@@ -1,13 +1,13 @@
 connection: "nte-smg-vendor-sources"
 
 # include all the views
-include: "*.view"
+include: "/views/*.view"
 
 # include all the explores
 #include: "*.explore"
 
 # include all the dashboards
-include: "*.dashboard"
+include: "/dashboards/*.dashboard"
 
 
 explore: master_stats {
