@@ -5,7 +5,7 @@ view: base_quarter_stats {
     type: time
     timeframes: ["quarter", "raw"]
     convert_tz: no
-    sql: TIMESTAMP_ADD(${TABLE}._data_quarter,INTERVAL 1 MINUTE) ;;
+    sql: CAST(CONCAT(${TABLE}._data_quarter, '-01') AS TIMESTAMP) ;; # TIMESTAMP_ADD(${TABLE}._data_quarter,INTERVAL 1 MINUTE) ;;
   }
   dimension: clicks {
     type: number
@@ -24,7 +24,7 @@ view: base_quarter_stats {
   }
   dimension: _data_last_quarter {
     type: date_quarter
-    sql: DATE_ADD(CAST(TIMESTAMP_ADD(${_data_quarter},INTERVAL 1 MINUTE) AS DATE), INTERVAL -1 QUARTER) ;;
+    sql: DATE_ADD(CAST(CONCAT(${_data_quarter}, '-01') AS DATE), INTERVAL -1 QUARTER) ;;
   }
   measure: total_impressions {
     drill_fields: [total_impressions]
