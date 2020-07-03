@@ -20,7 +20,6 @@ view: entity_base {
     sql: TIMESTAMP(${_data}) ;;
   }
 
-
   dimension: latest {
     type: yesno
     sql: ${TABLE}._DATA_DATE = ${TABLE}._LATEST_DATE ;;
