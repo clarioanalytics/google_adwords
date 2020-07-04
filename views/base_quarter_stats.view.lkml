@@ -5,7 +5,7 @@ view: base_quarter_stats {
     type: time
     timeframes: ["quarter", "raw"]
     convert_tz: no
-    sql: CAST(CONCAT(${TABLE}._data_quarter, '-01') AS TIMESTAMP) ;; # TIMESTAMP_ADD(${TABLE}._data_quarter,INTERVAL 1 MINUTE) ;;
+    sql: CAST(CONCAT(${TABLE}._data_quarter, '-01') AS TIMESTAMP) ;;
   }
   dimension: clicks {
     type: number

@@ -149,7 +149,7 @@ view: master_stats {
         year
       ]
       convert_tz: no
-      sql: ${TABLE}.Date ;;
+      sql: TIMESTAMP(${TABLE}.Date) ;;
     }
 
   dimension: week_of_year {
