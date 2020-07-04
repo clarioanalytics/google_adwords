@@ -7,4 +7,4 @@ include: "/views/*.view"
 include: "/explores/*.explore"
 
 # include all the dashboards
-include: "/dashboards/*.dashboard"
+# include: "/dashboards/*.dashboard"

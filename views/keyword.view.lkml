@@ -1,4 +1,4 @@
-include: "master_basic_stats.view.lkml"
+include: "master_stats.view.lkml"
 
 view: keyword {
   extends: [ad_criterion_base, entity_base]

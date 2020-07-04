@@ -5,11 +5,16 @@ view: customer {
   sql_table_name: google_adwords_NTE_SG.Customer_3152229625 ;;
 
   dimension: _data {
-    sql: TIMESTAMP(${TABLE}._DATA_DATE) ;;
+    sql: ${TABLE}._DATA_DATE ;;
   }
 
   dimension: _latest {
-    sql: TIMESTAMP(${TABLE}._LATEST_DATE) ;;
+    sql: ${TABLE}._LATEST_DATE ;;
+  }
+
+  dimension: external_customer_id {
+    type: number
+    sql: ${TABLE}.ExternalCustomerId ;;
   }
 
   dimension: account_currency_code {
@@ -22,9 +27,9 @@ view: customer {
     sql: ${TABLE}.AccountDescriptiveName ;;
   }
 
-  dimension: account_time_zone_id {
+  dimension: account_time_zone {
     type: string
-    sql: ${TABLE}.AccountTimeZoneId ;;
+    sql: ${TABLE}.AccountTimeZone ;;
   }
 
   dimension: can_manage_clients {
@@ -42,11 +47,6 @@ view: customer {
     }
   }
 
-  dimension: external_customer_id {
-    type: number
-    sql: ${TABLE}.ExternalCustomerId ;;
-  }
-
   dimension: is_auto_tagging_enabled {
     type: yesno
     sql: ${TABLE}.IsAutoTaggingEnabled ;;
@@ -57,11 +57,6 @@ view: customer {
     sql: ${TABLE}.IsTestAccount ;;
   }
 
-  dimension: primary_company_name {
-    type: string
-    sql: ${TABLE}.PrimaryCompanyName ;;
-  }
-
   measure: count {
     type: count_distinct
     sql: ${external_customer_id} ;;
@@ -70,6 +65,6 @@ view: customer {
 
   # ----- Detail ------
   set: detail {
-    fields: [external_customer_id, primary_company_name]
+    fields: [external_customer_id, account_descriptive_name]
   }
 }

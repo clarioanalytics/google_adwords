@@ -2,7 +2,7 @@ view: entity_base {
   extension: required
 
   dimension_group: _data {
-    description: "Filter on this field to limit query to a specified date range"
+    description: "Filter on this field to limit query to a specified date range."
     type: time
     timeframes: [
       raw,
