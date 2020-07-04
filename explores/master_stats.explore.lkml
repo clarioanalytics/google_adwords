@@ -20,19 +20,19 @@ explore: master_stats {
     relationship: many_to_one
   }
   join: ad {
-    view_label: "Ads"
+    view_label: "Ad"
     sql_on: ${ad.creative_id} = ${master_stats.creative_id} AND
       ${master_stats._data_raw} = ${ad._data_raw} ;;
     relationship:  many_to_one
   }
   join: ad_group {
-    view_label: "Ad Groups"
+    view_label: "Ad Group"
     sql_on: ${master_stats.ad_group_id} = ${ad_group.ad_group_id} AND
       ${master_stats._data_raw} = ${ad_group._data_raw} ;;
     relationship: many_to_one
   }
   join: campaign {
-    view_label: "Campaigns"
+    view_label: "Campaign"
     sql_on: ${master_stats.campaign_id} = ${campaign.campaign_id} AND
       ${master_stats._data_raw} = ${campaign._data_raw};;
     relationship: many_to_one
