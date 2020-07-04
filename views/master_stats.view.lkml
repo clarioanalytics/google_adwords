@@ -31,11 +31,11 @@ view: master_stats {
   {% endif %} ;;
 
     dimension: _data {
-      sql: TIMESTAMP(${TABLE}._DATA_DATE) ;;
+      sql: ${TABLE}._DATA_DATE ;;
     }
 
     dimension: _latest {
-      sql: TIMESTAMP(${TABLE}._LATEST_DATE) ;;
+      sql: ${TABLE}._LATEST_DATE ;;
     }
 
     dimension: hour_of_day {
@@ -149,7 +149,7 @@ view: master_stats {
         year
       ]
       convert_tz: no
-      sql: (TIMESTAMP(${TABLE}.Date)) ;;
+      sql: ${TABLE}.Date ;;
     }
 
   dimension: week_of_year {
