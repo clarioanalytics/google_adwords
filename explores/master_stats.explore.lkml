@@ -1,4 +1,6 @@
-include: "/views/*.view"
+include: "/views/dimensions/*.view.lkml"
+include: "/views/dimensions/criteria/*.view.lkml"
+include: "/views/facts/*.view.lkml"
 
 explore: master_stats {
   persist_for: "24 hours"

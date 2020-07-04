@@ -1,4 +1,5 @@
-include: "/views/*view"
+include: "/views/dimensions/*.view.lkml"
+include: "/views/dimensions/criteria/*.view.lkml"
 
 explore: keyword {
   hidden: yes

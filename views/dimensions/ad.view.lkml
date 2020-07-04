@@ -1,8 +1,8 @@
-include: "entity_base.view.lkml"
+include: "/views/dimensions/dimension_base.view.lkml"
 
 view: ad {
-  extends: [entity_base]
-  sql_table_name: google_adwords_NTE_SG.Ad_3152229625 ;;
+  extends: [dimension_base]
+  sql_table_name: @{google_ads_dataset}.Ad_@{google_ads_mcc_id} ;;
 
   dimension: _data {
     sql: TIMESTAMP(${TABLE}._DATA_DATE) ;;

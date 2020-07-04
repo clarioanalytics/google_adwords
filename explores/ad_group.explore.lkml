@@ -1,4 +1,4 @@
-include: "/views/*.view"
+include: "/views/dimensions/*.view.lkml"
 
 explore: ad_group {
   hidden: yes

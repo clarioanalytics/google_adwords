@@ -1,3 +1,6 @@
+include: "/views/dimensions/*.view.lkml"
+include: "/views/dimensions/criteria/*.view.lkml"
+
 view: campaign_budget_stats {
   derived_table: {
     explore_source: master_stats {
@@ -9,12 +12,15 @@ view: campaign_budget_stats {
       column: cost { field: master_stats.total_cost }
     }
   }
+
   dimension: campaign_id {
     type: number
   }
+
   dimension: external_customer_id {
     type: number
   }
+
   dimension_group: _data {
     type: time
     timeframes: [

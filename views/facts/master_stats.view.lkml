@@ -1,7 +1,7 @@
-include: "/views/*.view.lkml"
+include: "/views/facts/*.view.lkml"
 
 view: master_stats {
-  extends: [ad_criterion_base, base, stats]
+  extends: [base, stats]
 
   sql_table_name:
   {% if (ad._in_query or master_stats.creative_id._in_query) %}
@@ -37,6 +37,12 @@ view: master_stats {
     dimension: _latest {
       sql: ${TABLE}._LATEST_DATE ;;
     }
+
+  dimension: unique_key {
+    type:  string
+    hidden: yes
+    sql: CONCAT(CAST(${ad_group_id} AS STRING),CAST(${criterion_id} AS STRING)) ;;
+  }
 
     dimension: hour_of_day {
       type: number

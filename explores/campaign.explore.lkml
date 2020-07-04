@@ -1,4 +1,4 @@
-include: "/views/*.view"
+include: "/views/dimensions/*.view.lkml"
 
 explore: campaign {
   hidden: yes

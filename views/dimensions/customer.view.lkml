@@ -1,8 +1,8 @@
-include: "entity_base.view.lkml"
+include: "/views/dimensions/dimension_base.view.lkml"
 
 view: customer {
-  extends: [entity_base]
-  sql_table_name: google_adwords_NTE_SG.Customer_3152229625 ;;
+  extends: [dimension_base]
+  sql_table_name: @{google_ads_dataset}.Customer_@{google_ads_mcc_id} ;;
 
   dimension: _data {
     sql: ${TABLE}._DATA_DATE ;;

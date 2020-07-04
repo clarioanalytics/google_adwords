@@ -1,8 +1,8 @@
-include: "entity_base.view.lkml"
+include: "/views/dimensions/dimension_base.view.lkml"
 
 view: audience {
-  extends: [entity_base]
-  sql_table_name: google_adwords_NTE_SG.Audience_3152229625 ;;
+  extends: [dimension_base]
+  sql_table_name: @{google_ads_dataset}.Audience_@{google_ads_mcc_id} ;;
 
   dimension: _data {
     sql: TIMESTAMP(${TABLE}._DATA_DATE) ;;

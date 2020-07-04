@@ -1,4 +1,4 @@
-view: entity_base {
+view: dimension_base {
   extension: required
 
   dimension_group: _data {

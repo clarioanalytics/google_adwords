@@ -1,8 +1,8 @@
-include: "master_stats.view.lkml"
+include: "/views/dimensions/dimension_base.view.lkml"
 
 view: keyword {
-  extends: [ad_criterion_base, entity_base]
-  sql_table_name: google_adwords_NTE_SG.Keyword_3152229625 ;;
+  extends: [dimension_base]
+  sql_table_name: @{google_ads_dataset}.Keyword_@{google_ads_mcc_id} ;;
 
   dimension: _data {
     sql: TIMESTAMP(${TABLE}._DATA_DATE) ;;
@@ -10,6 +10,12 @@ view: keyword {
 
   dimension: _latest {
     sql: TIMESTAMP(${TABLE}._LATEST_DATE) ;;
+  }
+
+  dimension: unique_key {
+    type:  string
+    hidden: yes
+    sql: CONCAT(CAST(${ad_group_id} AS STRING),CAST(${criterion_id} AS STRING)) ;;
   }
 
   dimension: ad_group_id {

@@ -1,6 +1,6 @@
-include: "/views/campaign_budget_stats.view"
-include: "/views/campaign.view"
-include: "/views/customer.view"
+include: "/views/facts/campaign_budget_stats.view"
+include: "/views/dimensions/campaign.view"
+include: "/views/dimensions/customer.view"
 
 explore: campaign_budget_stats {
   hidden: yes
