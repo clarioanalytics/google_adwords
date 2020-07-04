@@ -21,6 +21,7 @@ view: entity_base {
   }
 
   dimension: latest {
+    description: "Filter on this field to include only the latest data."
     type: yesno
     sql: ${TABLE}._DATA_DATE = ${TABLE}._LATEST_DATE ;;
   }

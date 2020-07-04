@@ -5,11 +5,37 @@ view: campaign {
   sql_table_name: google_adwords_NTE_SG.Campaign_3152229625 ;;
 
   dimension: _data {
-    sql: TIMESTAMP(${TABLE}._DATA_DATE) ;;
+    sql: ${TABLE}._DATA_DATE ;;
   }
 
   dimension: _latest {
-    sql: TIMESTAMP(${TABLE}._LATEST_DATE) ;;
+    sql: ${TABLE}._LATEST_DATE ;;
+  }
+
+  dimension: bidding_strategy_id {
+    type: number
+    sql: ${TABLE}.BiddingStrategyId ;;
+  }
+
+  dimension: budget_id {
+    type: number
+    sql: ${TABLE}.BudgetId ;;
+  }
+
+  dimension: campaign_group_id {
+    type: number
+    sql: ${TABLE}.CampaignGroupId ;;
+  }
+
+  dimension: campaign_id {
+    type: number
+    primary_key: yes
+    sql: ${TABLE}.CampaignId ;;
+  }
+
+  dimension: external_customer_id {
+    type: number
+    sql: ${TABLE}.ExternalCustomerId ;;
   }
 
   dimension: advertising_channel_sub_type {
@@ -27,16 +53,6 @@ view: campaign {
     sql: ${TABLE}.Amount ;;
   }
 
-  dimension: bid_type {
-    type: string
-    sql: ${TABLE}.BidType ;;
-  }
-
-  dimension: bidding_strategy_id {
-    type: number
-    sql: ${TABLE}.BiddingStrategyId ;;
-  }
-
   dimension: bidding_strategy_name {
     type: string
     sql: ${TABLE}.BiddingStrategyName ;;
@@ -47,20 +63,9 @@ view: campaign {
     sql: ${TABLE}.BiddingStrategyType ;;
   }
 
-  dimension: budget_id {
-    type: number
-    sql: ${TABLE}.BudgetId ;;
-  }
-
   dimension: campaign_desktop_bid_modifier {
     type: number
     sql: ${TABLE}.CampaignDesktopBidModifier ;;
-  }
-
-  dimension: campaign_id {
-    type: number
-    primary_key: yes
-    sql: ${TABLE}.CampaignId ;;
   }
 
   dimension: campaign_mobile_bid_modifier {
@@ -71,11 +76,6 @@ view: campaign {
   dimension: campaign_name {
     type: string
     sql: ${TABLE}.CampaignName ;;
-    link: {
-      label: "Campaign Dashboard"
-      url: "/dashboards/google_adwords::campaign_performance?Campaign%20Name={{ value | encode_uri }}"
-      icon_url: "http://www.looker.com/favicon.ico"
-    }
   }
 
   dimension: campaign_status {
@@ -104,7 +104,7 @@ view: campaign {
       year
     ]
     convert_tz: no
-    sql: (TIMESTAMP(${TABLE}.EndDate)) ;;
+    sql: ${TABLE}.EndDate ;;
   }
 
   dimension: enhanced_cpc_enabled {
@@ -112,14 +112,9 @@ view: campaign {
     sql: ${TABLE}.EnhancedCpcEnabled ;;
   }
 
-  dimension: enhanced_cpv_enabled {
+  dimension: has_recommended_budget {
     type: yesno
-    sql: ${TABLE}.EnhancedCpvEnabled ;;
-  }
-
-  dimension: external_customer_id {
-    type: number
-    sql: ${TABLE}.ExternalCustomerId ;;
+    sql: ${TABLE}.HasRecommendedBudget ;;
   }
 
   dimension: is_budget_explicitly_shared {
@@ -137,9 +132,19 @@ view: campaign {
     sql: ${TABLE}.Labels ;;
   }
 
+  dimension: maximize_conversion_value_target_roas {
+    type: number
+    sql: ${TABLE}.MaximizeConversionValueTargetRoas ;;
+  }
+
   dimension: period {
     type: string
     sql: ${TABLE}.Period ;;
+  }
+
+  dimension: recommended_budget_amount {
+    type: string
+    sql: ${TABLE}.RecommendedBudgetAmount ;;
   }
 
   dimension: serving_status {
@@ -158,7 +163,7 @@ view: campaign {
       year
     ]
     convert_tz: no
-    sql: (TIMESTAMP(${TABLE}.StartDate)) ;;
+    sql: ${TABLE}.StartDate ;;
   }
 
   dimension: tracking_url_template {

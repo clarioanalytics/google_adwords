@@ -14,6 +14,7 @@ view: customer {
 
   dimension: external_customer_id {
     type: number
+    primary_key: yes
     sql: ${TABLE}.ExternalCustomerId ;;
   }
 
@@ -40,11 +41,6 @@ view: customer {
   dimension: customer_descriptive_name {
     type: string
     sql: ${TABLE}.CustomerDescriptiveName ;;
-    link: {
-      label: "Account Dashboard"
-      url: "/dashboards/google_adwords::account_performance?Customer%20Name={{ value | encode_uri }}"
-      icon_url: "http://www.looker.com/favicon.ico"
-    }
   }
 
   dimension: is_auto_tagging_enabled {
