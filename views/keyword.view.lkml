@@ -219,7 +219,7 @@ view: keyword {
 
   dimension: cpm_bid_usd {
     type: number
-    sql: coalesce((${cpm_bid} / 1000000), ${ad_group.cpm_bid_usd}) ;;
+    sql: ${cpm_bid} / 1000000 ;; #coalesce((${cpm_bid} / 1000000), ${ad_group.cpm_bid_usd})
   }
 
   # ----- Detail ------

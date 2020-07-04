@@ -5,22 +5,49 @@ view: ad_group {
   sql_table_name: google_adwords_NTE_SG.AdGroup_3152229625 ;;
 
   dimension: _data {
-    sql: TIMESTAMP(${TABLE}._DATA_DATE) ;;
+    sql: ${TABLE}._DATA_DATE ;;
   }
 
   dimension: _latest {
-    sql: TIMESTAMP(${TABLE}._LATEST_DATE) ;;
-  }
-
-  dimension: ad_group_desktop_bid_modifier {
-    type: number
-    sql: ${TABLE}.AdGroupDesktopBidModifier ;;
+    sql: ${TABLE}._LATEST_DATE ;;
   }
 
   dimension: ad_group_id {
     type: number
     primary_key: yes
     sql: ${TABLE}.AdGroupId ;;
+  }
+
+  dimension: bidding_strategy_id {
+    type: number
+    sql: ${TABLE}.BiddingStrategyId ;;
+  }
+
+  dimension: campaign_id {
+    type: number
+    sql: ${TABLE}.CampaignId ;;
+  }
+
+  dimension: cpc_bid {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.CpcBid ;;
+  }
+
+  dimension: cpv_bid {
+    hidden: yes
+    type: string
+    sql: ${TABLE}.CpvBid ;;
+  }
+
+  dimension: external_customer_id {
+    type: number
+    sql: ${TABLE}.ExternalCustomerId ;;
+  }
+
+  dimension: ad_group_desktop_bid_modifier {
+    type: number
+    sql: ${TABLE}.AdGroupDesktopBidModifier ;;
   }
 
   dimension: ad_group_mobile_bid_modifier {
@@ -31,12 +58,6 @@ view: ad_group {
   dimension: ad_group_name {
     type: string
     sql: ${TABLE}.AdGroupName ;;
-    link: {
-      label: "Ad Group Dashboard"
-      url: "/dashboards/google_adwords::ad_performance?Ad%20Group%20Name={{ value | encode_uri }}&Campaign%20Name={{ campaign.campaign_name._value | encode_uri }}"
-      icon_url: "http://www.looker.com/favicon.ico"
-    }
-    required_fields: [campaign.campaign_name]
   }
 
   dimension: ad_group_status {
@@ -49,14 +70,14 @@ view: ad_group {
     sql: ${TABLE}.AdGroupTabletBidModifier ;;
   }
 
-  dimension: bid_type {
+  dimension: ad_group_type {
     type: string
-    sql: ${TABLE}.BidType ;;
+    sql: ${TABLE}.AdGroupType ;;
   }
 
-  dimension: bidding_strategy_id {
-    type: number
-    sql: ${TABLE}.BiddingStrategyId ;;
+  dimension: ad_rotation_mode {
+    type: string
+    sql: ${TABLE}.AdRotationMode ;;
   }
 
   dimension: bidding_strategy_name {
@@ -74,48 +95,29 @@ view: ad_group {
     sql: ${TABLE}.BiddingStrategyType ;;
   }
 
-  dimension: campaign_id {
-    type: number
-    sql: ${TABLE}.CampaignId ;;
-  }
-
   dimension: content_bid_criterion_type_group {
     type: string
     sql: ${TABLE}.ContentBidCriterionTypeGroup ;;
   }
 
-  dimension: cpc_bid {
-    hidden: yes
+  dimension: cpm_bid_str {
     type: string
-    sql: ${TABLE}.CpcBid ;;
+    sql: ${TABLE}.CpmBidStr ;;
   }
 
-  dimension: cpm_bid {
-    hidden: yes
+  dimension: effective_target_roas {
     type: number
-    value_format_name: id
-    sql: ${TABLE}.CpmBid ;;
+    sql: ${TABLE}.EffectiveTargetRoas ;;
   }
 
-  dimension: cpv_bid {
-    hidden: yes
+  dimension: effective_target_roas_source {
     type: string
-    sql: ${TABLE}.CpvBid ;;
+    sql: ${TABLE}.EffectiveTargetRoasSource ;;
   }
 
   dimension: enhanced_cpc_enabled {
     type: yesno
     sql: ${TABLE}.EnhancedCpcEnabled ;;
-  }
-
-  dimension: enhanced_cpv_enabled {
-    type: yesno
-    sql: ${TABLE}.EnhancedCpvEnabled ;;
-  }
-
-  dimension: external_customer_id {
-    type: number
-    sql: ${TABLE}.ExternalCustomerId ;;
   }
 
   dimension: label_ids {
@@ -149,20 +151,9 @@ view: ad_group {
     sql: ${TABLE}.UrlCustomParameters ;;
   }
 
-  measure: count {
-    type: count_distinct
-    sql: ${ad_group_id} ;;
-    drill_fields: [detail*]
-  }
-
   dimension: cpc_bid_usd {
     type: number
     sql: (${cpc_bid} / 1000000)  ;;
-  }
-
-  dimension: cpm_bid_usd {
-    type: number
-    sql: (${cpm_bid} / 1000000) ;;
   }
 
   dimension: cpv_bid_usd {
@@ -173,6 +164,12 @@ view: ad_group {
   dimension: target_cpa_usd {
     type: number
     sql: (${target_cpa} / 1000000) ;;
+  }
+
+  measure: count {
+    type: count_distinct
+    sql: ${ad_group_id} ;;
+    drill_fields: [detail*]
   }
 
   # ----- Detail ------
