@@ -21,7 +21,7 @@ view: dimension_base {
   }
 
   dimension: latest {
-    description: "Filter on this field to limit query to latest data."
+    hidden: yes
     type: yesno
     sql: ${TABLE}._DATA_DATE = ${TABLE}._LATEST_DATE ;;
   }
