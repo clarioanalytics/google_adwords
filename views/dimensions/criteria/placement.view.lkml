@@ -1,8 +1,8 @@
 include: "/views/dimensions/dimension_base.view.lkml"
 
-view: audience {
+view: placement {
   extends: [dimension_base]
-  sql_table_name: @{google_ads_dataset}.Audience_@{google_ads_mcc_id} ;;
+  sql_table_name: @{google_ads_dataset}.Placement_@{google_ads_mcc_id} ;;
 
   dimension: _data {
     sql: TIMESTAMP(${TABLE}._DATA_DATE) ;;
@@ -89,14 +89,14 @@ view: audience {
     sql: ${TABLE}.CriteriaDestinationUrl ;;
   }
 
-  dimension: criterion_attachment_level {
-    type: string
-    sql: ${TABLE}.CriterionAttachmentLevel ;;
-  }
-
   dimension: criterion_id {
     type: number
     sql: ${TABLE}.CriterionId ;;
+  }
+
+  dimension: display_name {
+    type: string
+    sql: ${TABLE}.DisplayName ;;
   }
 
   dimension: external_customer_id {
@@ -119,6 +119,11 @@ view: audience {
     sql: ${TABLE}.FinalUrls ;;
   }
 
+  dimension: is_negative {
+    type: yesno
+    sql: ${TABLE}.IsNegative ;;
+  }
+
   dimension: is_restrict {
     type: yesno
     sql: ${TABLE}.IsRestrict ;;
@@ -137,11 +142,6 @@ view: audience {
   dimension: url_custom_parameters {
     type: string
     sql: ${TABLE}.UrlCustomParameters ;;
-  }
-
-  dimension: user_list_name {
-    type: string
-    sql: ${TABLE}.UserListName ;;
   }
 
   measure: count {

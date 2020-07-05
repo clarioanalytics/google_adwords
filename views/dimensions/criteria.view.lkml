@@ -1,8 +1,8 @@
 include: "/views/dimensions/dimension_base.view.lkml"
 
-view: audience {
+view: criteria {
   extends: [dimension_base]
-  sql_table_name: @{google_ads_dataset}.Audience_@{google_ads_mcc_id} ;;
+  sql_table_name: @{google_ads_dataset}.Criteria_@{google_ads_mcc_id} ;;
 
   dimension: _data {
     sql: TIMESTAMP(${TABLE}._DATA_DATE) ;;
@@ -24,6 +24,11 @@ view: audience {
     sql: ${TABLE}.AdGroupId ;;
   }
 
+  dimension: approval_status {
+    type: string
+    sql: ${TABLE}.ApprovalStatus ;;
+  }
+
   dimension: base_ad_group_id {
     type: number
     sql: ${TABLE}.BaseAdGroupId ;;
@@ -37,21 +42,6 @@ view: audience {
   dimension: bid_modifier {
     type: number
     sql: ${TABLE}.BidModifier ;;
-  }
-
-  dimension: bidding_strategy_id {
-    type: number
-    sql: ${TABLE}.BiddingStrategyId ;;
-  }
-
-  dimension: bidding_strategy_name {
-    type: string
-    sql: ${TABLE}.BiddingStrategyName ;;
-  }
-
-  dimension: bidding_strategy_type {
-    type: string
-    sql: ${TABLE}.BiddingStrategyType ;;
   }
 
   dimension: campaign_id {
@@ -69,14 +59,24 @@ view: audience {
     sql: ${TABLE}.CpcBidSource ;;
   }
 
-  dimension: cpm_bid_source {
-    type: string
-    sql: ${TABLE}.CpmBidSource ;;
-  }
-
   dimension: cpm_bid_str {
     type: string
     sql: ${TABLE}.CpmBidStr ;;
+  }
+
+  dimension: cpv_bid {
+    type: string
+    sql: ${TABLE}.CpvBid ;;
+  }
+
+  dimension: cpv_bid_source {
+    type: string
+    sql: ${TABLE}.CpvBidSource ;;
+  }
+
+  dimension: creative_quality_score {
+    type: string
+    sql: ${TABLE}.CreativeQualityScore ;;
   }
 
   dimension: criteria {
@@ -89,14 +89,34 @@ view: audience {
     sql: ${TABLE}.CriteriaDestinationUrl ;;
   }
 
-  dimension: criterion_attachment_level {
+  dimension: criteria_type {
     type: string
-    sql: ${TABLE}.CriterionAttachmentLevel ;;
+    sql: ${TABLE}.CriteriaType ;;
   }
 
   dimension: criterion_id {
     type: number
     sql: ${TABLE}.CriterionId ;;
+  }
+
+  dimension: display_name {
+    type: string
+    sql: ${TABLE}.DisplayName ;;
+  }
+
+  dimension: enhanced_cpc_enabled {
+    type: yesno
+    sql: ${TABLE}.EnhancedCpcEnabled ;;
+  }
+
+  dimension: estimated_add_clicks_at_first_position_cpc {
+    type: number
+    sql: ${TABLE}.EstimatedAddClicksAtFirstPositionCpc ;;
+  }
+
+  dimension: estimated_add_cost_at_first_position_cpc {
+    type: number
+    sql: ${TABLE}.EstimatedAddCostAtFirstPositionCpc ;;
   }
 
   dimension: external_customer_id {
@@ -119,14 +139,69 @@ view: audience {
     sql: ${TABLE}.FinalUrls ;;
   }
 
-  dimension: is_restrict {
+  dimension: first_page_cpc {
+    type: string
+    sql: ${TABLE}.FirstPageCpc ;;
+  }
+
+  dimension: first_position_cpc {
+    type: string
+    sql: ${TABLE}.FirstPositionCpc ;;
+  }
+
+  dimension: has_quality_score {
     type: yesno
-    sql: ${TABLE}.IsRestrict ;;
+    sql: ${TABLE}.HasQualityScore ;;
+  }
+
+  dimension: is_negative {
+    type: yesno
+    sql: ${TABLE}.IsNegative ;;
+  }
+
+  dimension: label_ids {
+    type: string
+    sql: ${TABLE}.LabelIds ;;
+  }
+
+  dimension: labels {
+    type: string
+    sql: ${TABLE}.Labels ;;
+  }
+
+  dimension: parameter {
+    type: string
+    sql: ${TABLE}.Parameter ;;
+  }
+
+  dimension: post_click_quality_score {
+    type: string
+    sql: ${TABLE}.PostClickQualityScore ;;
+  }
+
+  dimension: quality_score {
+    type: number
+    sql: ${TABLE}.QualityScore ;;
+  }
+
+  dimension: search_predicted_ctr {
+    type: string
+    sql: ${TABLE}.SearchPredictedCtr ;;
   }
 
   dimension: status {
     type: string
     sql: ${TABLE}.Status ;;
+  }
+
+  dimension: system_serving_status {
+    type: string
+    sql: ${TABLE}.SystemServingStatus ;;
+  }
+
+  dimension: top_of_page_cpc {
+    type: string
+    sql: ${TABLE}.TopOfPageCpc ;;
   }
 
   dimension: tracking_url_template {
@@ -139,9 +214,9 @@ view: audience {
     sql: ${TABLE}.UrlCustomParameters ;;
   }
 
-  dimension: user_list_name {
-    type: string
-    sql: ${TABLE}.UserListName ;;
+  dimension: vertical_id {
+    type: number
+    sql: ${TABLE}.VerticalId ;;
   }
 
   measure: count {

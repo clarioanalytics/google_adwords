@@ -28,11 +28,6 @@ view: keyword {
     sql: ${TABLE}.ApprovalStatus ;;
   }
 
-  dimension: bid_type {
-    type: string
-    sql: ${TABLE}.BidType ;;
-  }
-
   dimension: bidding_strategy_id {
     type: number
     sql: ${TABLE}.BiddingStrategyId ;;
@@ -40,9 +35,7 @@ view: keyword {
 
   dimension: bidding_strategy_name {
     type: string
-    sql: CASE
-      WHEN ${TABLE}.BiddingStrategyName IS NOT NULL THEN "Advanced"
-      ELSE NULL END ;;
+    sql: ${TABLE}.BiddingStrategyName ;;
   }
 
   dimension: bidding_strategy_source {
@@ -61,8 +54,7 @@ view: keyword {
   }
 
   dimension: cpc_bid {
-    hidden: yes
-    type: number
+    type: string
     sql: ${TABLE}.CpcBid ;;
   }
 
@@ -71,10 +63,9 @@ view: keyword {
     sql: ${TABLE}.CpcBidSource ;;
   }
 
-  dimension: cpm_bid {
-    hidden: yes
-    type: number
-    sql: ${TABLE}.CpmBid ;;
+  dimension: cpm_bid_str {
+    type: string
+    sql: ${TABLE}.CpmBidStr ;;
   }
 
   dimension: creative_quality_score {
@@ -85,11 +76,6 @@ view: keyword {
   dimension: criteria {
     type: string
     sql: ${TABLE}.Criteria ;;
-    link: {
-      icon_url: "https://www.google.com/images/branding/product/ico/googleg_lodp.ico"
-      label: "Google Search"
-      url: "https://www.google.com/search?q={{ value | encode_uri}}"
-    }
   }
 
   dimension: criteria_destination_url {
@@ -130,6 +116,11 @@ view: keyword {
   dimension: final_mobile_urls {
     type: string
     sql: ${TABLE}.FinalMobileUrls ;;
+  }
+
+  dimension: final_url_suffix {
+    type: string
+    sql: ${TABLE}.FinalUrlSuffix ;;
   }
 
   dimension: final_urls {
@@ -212,6 +203,11 @@ view: keyword {
     sql: ${TABLE}.UrlCustomParameters ;;
   }
 
+  dimension: vertical_id {
+    type: number
+    sql: ${TABLE}.VerticalId ;;
+  }
+
   measure: count {
     type: count_distinct
     sql: ${criterion_id} ;;
@@ -221,11 +217,6 @@ view: keyword {
   dimension: cpc_bid_usd {
     type: number
     sql: coalesce((${cpc_bid} / 1000000), ${ad_group.cpc_bid_usd}) ;;
-  }
-
-  dimension: cpm_bid_usd {
-    type: number
-    sql: ${cpm_bid} / 1000000 ;; #coalesce((${cpm_bid} / 1000000), ${ad_group.cpm_bid_usd})
   }
 
   # ----- Detail ------
