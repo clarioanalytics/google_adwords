@@ -17,7 +17,7 @@ view: dimension_base {
       day_of_year
     ]
     convert_tz: no
-    sql: TIMESTAMP(${_data}) ;;
+    sql: ${_data} ;;
   }
 
   dimension: latest {

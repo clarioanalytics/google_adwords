@@ -5,11 +5,11 @@ view: gender {
   sql_table_name: @{google_ads_dataset}.Gender_@{google_ads_mcc_id} ;;
 
   dimension: _data {
-    sql: TIMESTAMP(${TABLE}._DATA_DATE) ;;
+    sql: ${TABLE}._DATA_DATE ;;
   }
 
   dimension: _latest {
-    sql: TIMESTAMP(${TABLE}._LATEST_DATE) ;;
+    sql: ${TABLE}._LATEST_DATE ;;
   }
 
   dimension: unique_key {
