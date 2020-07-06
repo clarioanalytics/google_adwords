@@ -1,32 +1,32 @@
 include: "/views/facts/*.view.lkml"
 
 view: master_stats {
-  extends: [base, stats]
+  extends: [stats_base]
 
   sql_table_name:
   {% if (ad._in_query or master_stats.creative_id._in_query) %}
-    google_adwords_NTE_SG.AdBasicStats_3152229625
+    @{google_ads_dataset}.AdBasicStats_@{google_ads_mcc_id}
   {% elsif (audience._in_query or master_stats.audience_criterion_id._in_query) %}
-    google_adwords_NTE_SG.AudienceBasicStats_3152229625
+    @{google_ads_dataset}.AudienceBasicStats_@{google_ads_mcc_id}
   {% elsif (keyword._in_query or master_stats.criteria_id._in_query) %}
-    google_adwords_NTE_SG.KeywordBasicStats_3152229625
+    @{google_ads_dataset}.KeywordBasicStats_@{google_ads_mcc_id}
   {% elsif (ad_group._in_query or master_stats.ad_group_id._in_query) %}
     {% if master_stats.hour_of_day._in_query %}
-      google_adwords_NTE_SG.HourlyAdGroupStats_3152229625
+      @{google_ads_dataset}.HourlyAdGroupStats_@{google_ads_mcc_id}
     {% else %}
-      google_adwords_NTE_SG.AdGroupBasicStats_3152229625
+      @{google_ads_dataset}.AdGroupBasicStats_@{google_ads_mcc_id}
     {% endif %}
   {% elsif (campaign._in_query or master_stats.campaign_id._in_query) %}
     {% if master_stats.hour_of_day._in_query %}
-      google_adwords_NTE_SG.HourlyCampaignStats_3152229625
+      @{google_ads_dataset}.HourlyCampaignStats_@{google_ads_mcc_id}
     {% else %}
-      google_adwords_NTE_SG.CampaignBasicStats_3152229625
+      @{google_ads_dataset}.CampaignBasicStats_@{google_ads_mcc_id}
     {% endif %}
   {% else %}
     {% if master_stats.hour_of_day._in_query %}
-      google_adwords_NTE_SG.HourlyAccountStats_3152229625
+      @{google_ads_dataset}.HourlyAccountStats_@{google_ads_mcc_id}
     {% else %}
-      google_adwords_NTE_SG.AccountBasicStats_3152229625
+      @{google_ads_dataset}.AccountBasicStats_@{google_ads_mcc_id}
     {% endif %}
   {% endif %} ;;
 
@@ -201,77 +201,6 @@ view: master_stats {
     measure: count {
       type: count
       drill_fields: []
-    }
-
-    measure: total_impressions {
-      link: {
-        label: "Drill"
-        url: "/explore/google_adwords/master_stats?fields={% if master_stats.creative_id._in_query %}master_stats.creative_id,ads.creative,master_stats.criterion_id,keywords.criteria{% elsif master_stats.criterion_id._in_query %}master_stats.criterion_id,keywords.criteria{% elsif master_stats.ad_group_id._in_query %}master_stats.ad_group_id,ad_group.ad_group_name{% else %}master_stats.campaign_id,campaign.campaign_name{% endif %}master_stats.total_impressions,master_stats.total_interactions,master_stats.total_conversions,master_stats.total_cost_usd,master_stats.average_interaction_rate,master_stats.average_conversion_rate,master_stats.average_cost_per_impression,master_stats.average_cost_per_click,master_stats.average_cost_per_conversion&f[master_stats._data_date]=7+days&sorts=master_stats.total_impressions+desc&limit=10&vis=%7B%22type%22%3A%22table%22%2C%22show_view_names%22%false%2C%22show_row_numbers%22%3Atrue%2C%22truncate_column_names%22%3Afalse%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22table_theme%22%3A%22editable%22%2C%22limit_displayed_rows%22%3Afalse%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%7D"
-        icon_url: "http://www.looker.com/favicon.ico"
-      }
-    }
-    measure: total_clicks {
-      link: {
-        label: "Drill"
-        url: "/explore/google_adwords/master_stats?fields={% if master_stats.creative_id._in_query %}master_stats.creative_id,ads.creative,master_stats.criterion_id,keywords.criteria{% elsif master_stats.criterion_id._in_query %}master_stats.criterion_id,keywords.criteria{% elsif master_stats.ad_group_id._in_query %}master_stats.ad_group_id,ad_group.ad_group_name{% else %}master_stats.campaign_id,campaign.campaign_name{% endif %}master_stats.total_impressions,master_stats.total_interactions,master_stats.total_conversions,master_stats.total_cost_usd,master_stats.average_interaction_rate,master_stats.average_conversion_rate,master_stats.average_cost_per_impression,master_stats.average_cost_per_click,master_stats.average_cost_per_conversion&f[master_stats._data_date]=7+days&sorts=master_stats.total_impressions+desc&limit=10&vis=%7B%22type%22%3A%22table%22%2C%22show_view_names%22%false%2C%22show_row_numbers%22%3Atrue%2C%22truncate_column_names%22%3Afalse%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22table_theme%22%3A%22editable%22%2C%22limit_displayed_rows%22%3Afalse%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%7D"
-        icon_url: "http://www.looker.com/favicon.ico"
-      }
-    }
-    measure: total_interactions {
-      link: {
-        label: "Drill"
-        url: "/explore/google_adwords/master_stats?fields={% if master_stats.creative_id._in_query %}master_stats.creative_id,ads.creative,master_stats.criterion_id,keywords.criteria{% elsif master_stats.criterion_id._in_query %}master_stats.criterion_id,keywords.criteria{% elsif master_stats.ad_group_id._in_query %}master_stats.ad_group_id,ad_group.ad_group_name{% else %}master_stats.campaign_id,campaign.campaign_name{% endif %}master_stats.total_impressions,master_stats.total_interactions,master_stats.total_conversions,master_stats.total_cost_usd,master_stats.average_interaction_rate,master_stats.average_conversion_rate,master_stats.average_cost_per_impression,master_stats.average_cost_per_click,master_stats.average_cost_per_conversion&f[master_stats._data_date]=7+days&sorts=master_stats.total_impressions+desc&limit=10&vis=%7B%22type%22%3A%22table%22%2C%22show_view_names%22%false%2C%22show_row_numbers%22%3Atrue%2C%22truncate_column_names%22%3Afalse%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22table_theme%22%3A%22editable%22%2C%22limit_displayed_rows%22%3Afalse%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%7D"
-        icon_url: "http://www.looker.com/favicon.ico"
-      }
-    }
-    measure: total_conversions {
-      link: {
-        label: "Drill"
-        url: "/explore/google_adwords/master_stats?fields={% if master_stats.creative_id._in_query %}master_stats.creative_id,ads.creative,master_stats.criterion_id,keywords.criteria{% elsif master_stats.criterion_id._in_query %}master_stats.criterion_id,keywords.criteria{% elsif master_stats.ad_group_id._in_query %}master_stats.ad_group_id,ad_group.ad_group_name{% else %}master_stats.campaign_id,campaign.campaign_name{% endif %}master_stats.total_impressions,master_stats.total_interactions,master_stats.total_conversions,master_stats.total_cost_usd,master_stats.average_interaction_rate,master_stats.average_conversion_rate,master_stats.average_cost_per_impression,master_stats.average_cost_per_click,master_stats.average_cost_per_conversion&f[master_stats._data_date]=7+days&sorts=master_stats.total_impressions+desc&limit=10&vis=%7B%22type%22%3A%22table%22%2C%22show_view_names%22%false%2C%22show_row_numbers%22%3Atrue%2C%22truncate_column_names%22%3Afalse%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22table_theme%22%3A%22editable%22%2C%22limit_displayed_rows%22%3Afalse%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%7D"
-        icon_url: "http://www.looker.com/favicon.ico"
-      }
-    }
-    measure: total_cost_usd {
-      link: {
-        label: "Drill"
-        url: "/explore/google_adwords/master_stats?fields={% if master_stats.creative_id._in_query %}master_stats.creative_id,ads.creative,master_stats.criterion_id,keywords.criteria{% elsif master_stats.criterion_id._in_query %}master_stats.criterion_id,keywords.criteria{% elsif master_stats.ad_group_id._in_query %}master_stats.ad_group_id,ad_group.ad_group_name{% else %}master_stats.campaign_id,campaign.campaign_name{% endif %}master_stats.total_impressions,master_stats.total_interactions,master_stats.total_conversions,master_stats.total_cost_usd,master_stats.average_interaction_rate,master_stats.average_conversion_rate,master_stats.average_cost_per_impression,master_stats.average_cost_per_click,master_stats.average_cost_per_conversion&f[master_stats._data_date]=7+days&sorts=master_stats.total_impressions+desc&limit=10&vis=%7B%22type%22%3A%22table%22%2C%22show_view_names%22%false%2C%22show_row_numbers%22%3Atrue%2C%22truncate_column_names%22%3Afalse%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22table_theme%22%3A%22editable%22%2C%22limit_displayed_rows%22%3Afalse%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%7D"
-        icon_url: "http://www.looker.com/favicon.ico"
-      }
-    }
-    measure: average_interaction_rate {
-      link: {
-        label: "Drill"
-        url: "/explore/google_adwords/master_stats?fields={% if master_stats.creative_id._in_query %}master_stats.creative_id,ads.creative,master_stats.criterion_id,keywords.criteria{% elsif master_stats.criterion_id._in_query %}master_stats.criterion_id,keywords.criteria{% elsif master_stats.ad_group_id._in_query %}master_stats.ad_group_id,ad_group.ad_group_name{% else %}master_stats.campaign_id,campaign.campaign_name{% endif %}master_stats.total_impressions,master_stats.total_interactions,master_stats.total_conversions,master_stats.total_cost_usd,master_stats.average_interaction_rate,master_stats.average_conversion_rate,master_stats.average_cost_per_impression,master_stats.average_cost_per_click,master_stats.average_cost_per_conversion&f[master_stats._data_date]=7+days&sorts=master_stats.total_impressions+desc&limit=10&vis=%7B%22type%22%3A%22table%22%2C%22show_view_names%22%false%2C%22show_row_numbers%22%3Atrue%2C%22truncate_column_names%22%3Afalse%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22table_theme%22%3A%22editable%22%2C%22limit_displayed_rows%22%3Afalse%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%7D"
-        icon_url: "http://www.looker.com/favicon.ico"
-      }
-    }
-    measure: average_click_rate {
-      link: {
-        label: "Drill"
-        url: "/explore/google_adwords/master_stats?fields={% if master_stats.creative_id._in_query %}master_stats.creative_id,ads.creative,master_stats.criterion_id,keywords.criteria{% elsif master_stats.criterion_id._in_query %}master_stats.criterion_id,keywords.criteria{% elsif master_stats.ad_group_id._in_query %}master_stats.ad_group_id,ad_group.ad_group_name{% else %}master_stats.campaign_id,campaign.campaign_name{% endif %}master_stats.total_impressions,master_stats.total_interactions,master_stats.total_conversions,master_stats.total_cost_usd,master_stats.average_interaction_rate,master_stats.average_conversion_rate,master_stats.average_cost_per_impression,master_stats.average_cost_per_click,master_stats.average_cost_per_conversion&f[master_stats._data_date]=7+days&sorts=master_stats.total_impressions+desc&limit=10&vis=%7B%22type%22%3A%22table%22%2C%22show_view_names%22%false%2C%22show_row_numbers%22%3Atrue%2C%22truncate_column_names%22%3Afalse%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22table_theme%22%3A%22editable%22%2C%22limit_displayed_rows%22%3Afalse%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%7D"
-        icon_url: "http://www.looker.com/favicon.ico"
-      }
-    }
-    measure: average_conversion_rate {
-      link: {
-        label: "Drill"
-        url: "/explore/google_adwords/master_stats?fields={% if master_stats.creative_id._in_query %}master_stats.creative_id,ads.creative,master_stats.criterion_id,keywords.criteria{% elsif master_stats.criterion_id._in_query %}master_stats.criterion_id,keywords.criteria{% elsif master_stats.ad_group_id._in_query %}master_stats.ad_group_id,ad_group.ad_group_name{% else %}master_stats.campaign_id,campaign.campaign_name{% endif %}master_stats.total_impressions,master_stats.total_interactions,master_stats.total_conversions,master_stats.total_cost_usd,master_stats.average_interaction_rate,master_stats.average_conversion_rate,master_stats.average_cost_per_impression,master_stats.average_cost_per_click,master_stats.average_cost_per_conversion&f[master_stats._data_date]=7+days&sorts=master_stats.total_impressions+desc&limit=10&vis=%7B%22type%22%3A%22table%22%2C%22show_view_names%22%false%2C%22show_row_numbers%22%3Atrue%2C%22truncate_column_names%22%3Afalse%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22table_theme%22%3A%22editable%22%2C%22limit_displayed_rows%22%3Afalse%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%7D"
-        icon_url: "http://www.looker.com/favicon.ico"
-      }
-    }
-    measure: average_cost_per_click {
-      link: {
-        label: "Drill"
-        url: "/explore/google_adwords/master_stats?fields={% if master_stats.creative_id._in_query %}master_stats.creative_id,ads.creative,master_stats.criterion_id,keywords.criteria{% elsif master_stats.criterion_id._in_query %}master_stats.criterion_id,keywords.criteria{% elsif master_stats.ad_group_id._in_query %}master_stats.ad_group_id,ad_group.ad_group_name{% else %}master_stats.campaign_id,campaign.campaign_name{% endif %}master_stats.total_impressions,master_stats.total_interactions,master_stats.total_conversions,master_stats.total_cost_usd,master_stats.average_interaction_rate,master_stats.average_conversion_rate,master_stats.average_cost_per_impression,master_stats.average_cost_per_click,master_stats.average_cost_per_conversion&f[master_stats._data_date]=7+days&sorts=master_stats.total_impressions+desc&limit=10&vis=%7B%22type%22%3A%22table%22%2C%22show_view_names%22%false%2C%22show_row_numbers%22%3Atrue%2C%22truncate_column_names%22%3Afalse%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22table_theme%22%3A%22editable%22%2C%22limit_displayed_rows%22%3Afalse%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%7D"
-        icon_url: "http://www.looker.com/favicon.ico"
-      }
-    }
-    measure: average_cost_per_conversion {
-      link: {
-        label: "Drill"
-        url: "/explore/google_adwords/master_stats?fields={% if master_stats.creative_id._in_query %}master_stats.creative_id,ads.creative,master_stats.criterion_id,keywords.criteria{% elsif master_stats.criterion_id._in_query %}master_stats.criterion_id,keywords.criteria{% elsif master_stats.ad_group_id._in_query %}master_stats.ad_group_id,ad_group.ad_group_name{% else %}master_stats.campaign_id,campaign.campaign_name{% endif %}master_stats.total_impressions,master_stats.total_interactions,master_stats.total_conversions,master_stats.total_cost_usd,master_stats.average_interaction_rate,master_stats.average_conversion_rate,master_stats.average_cost_per_impression,master_stats.average_cost_per_click,master_stats.average_cost_per_conversion&f[master_stats._data_date]=7+days&sorts=master_stats.total_impressions+desc&limit=10&vis=%7B%22type%22%3A%22table%22%2C%22show_view_names%22%false%2C%22show_row_numbers%22%3Atrue%2C%22truncate_column_names%22%3Afalse%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22table_theme%22%3A%22editable%22%2C%22limit_displayed_rows%22%3Afalse%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%7D"
-        icon_url: "http://www.looker.com/favicon.ico"
-      }
     }
 
   }

@@ -1,5 +1,65 @@
-view: stats {
+view: stats_base {
   extension: required
+
+  dimension_group: _data {
+    description: "Filter on this field to limit query to a specified date range."
+    type: time
+    timeframes: [
+      raw,
+      date,
+      week,
+      month,
+      quarter,
+      year,
+      day_of_week,
+      day_of_week_index,
+      day_of_month,
+      day_of_year
+    ]
+    convert_tz: no
+    sql: ${_data} ;;
+  }
+
+  dimension: latest {
+    hidden: yes
+    type: yesno
+    sql: ${TABLE}._DATA_DATE = ${TABLE}._LATEST_DATE ;;
+  }
+
+  dimension: ad_network_type1 {
+    hidden: yes
+  }
+
+  dimension: ad_network_type2 {
+    hidden: yes
+  }
+
+  dimension: ad_network_type {
+    type: string
+    sql: CASE
+      WHEN ${ad_network_type1} = 'SHASTA_AD_NETWORK_TYPE_1_SEARCH' AND ${ad_network_type2} = 'SHASTA_AD_NETWORK_TYPE_2_SEARCH'
+        THEN 'Search'
+      WHEN ${ad_network_type1} = 'SHASTA_AD_NETWORK_TYPE_1_SEARCH' AND ${ad_network_type2} = 'SHASTA_AD_NETWORK_TYPE_2_SEARCH_PARTNERS'
+        THEN 'Search Partners'
+      WHEN ${ad_network_type1} = 'SHASTA_AD_NETWORK_TYPE_1_CONTENT'
+        THEN 'Content'
+      ELSE 'Other'
+      END
+      ;;
+  }
+
+  dimension: device {
+    hidden: yes
+  }
+
+  dimension: device_type {
+    type: string
+    sql:  CASE
+      WHEN ${device} LIKE '%Desktop%' THEN "Desktop"
+      WHEN ${device} LIKE '%Mobile%' THEN "Mobile"
+      WHEN ${device} LIKE '%Tablet%' THEN "Tablet"
+      ELSE "Unknown" END;;
+  }
 
   dimension: cost_usd {
     type: number

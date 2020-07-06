@@ -4,6 +4,7 @@ view: campaign {
   extends: [dimension_base]
   sql_table_name: @{google_ads_dataset}.Campaign_@{google_ads_mcc_id} ;;
 
+  # ----- Extend _data and _latest from dimension_base ------
   dimension: _data {
     sql: ${TABLE}._DATA_DATE ;;
   }

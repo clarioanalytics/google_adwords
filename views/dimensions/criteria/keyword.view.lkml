@@ -4,6 +4,7 @@ view: keyword {
   extends: [dimension_base]
   sql_table_name: @{google_ads_dataset}.Keyword_@{google_ads_mcc_id} ;;
 
+  # ----- Extend _data and _latest from dimension_base ------
   dimension: _data {
     sql: ${TABLE}._DATA_DATE ;;
   }
@@ -14,6 +15,7 @@ view: keyword {
 
   dimension: unique_key {
     type:  string
+    primary_key: yes
     hidden: yes
     sql: CONCAT(CAST(${ad_group_id} AS STRING),CAST(${criterion_id} AS STRING)) ;;
   }
